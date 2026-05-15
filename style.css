@@ -245,7 +245,6 @@ header {
         border: var(--color-orange) solid 1px;
         border-radius: 4px;
         padding: 5px;
-        flex: 1;
     }
     .copy-button{
         background-color: transparent;
