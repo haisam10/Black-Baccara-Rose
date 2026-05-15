@@ -1,0 +1,311 @@
+@import url('https://fonts.googleapis.com/css2?family=Saira:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Monoton&display=swap');
+
+:root {
+    --primary-color: #1E1E1E;
+    --secondary-color: #26445F;
+    --color-white: #FFFFFF;
+    --color-orange: #D35500;
+    --color-gray: #808080;
+    --color-pink: #ff95ff;
+    --color-green: #22B14C;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--color-orange);
+    border-radius: 4px;
+    transition: background 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #ff6b1a;
+}
+
+/* Firefox Scrollbar */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-orange) rgba(255, 255, 255, 0.05);
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    font-family: "Saira", sans-serif;
+    background-color: var(--primary-color);
+    margin: 0;
+    padding: 0px;
+    height: 100%;
+    overflow: hidden;
+}
+
+marquee {
+    background-color: var(--primary-color);
+    color: var(--color-white);
+    padding: 0;
+    font-weight: 500;
+    font-size: small;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    border-bottom: 1px solid crimson;
+}
+
+header {
+    display: flex;
+    border: #1E1E1E solid 1px;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--secondary-color);
+    color: var(--color-white);
+    padding: 20px 10px 0px 10px;
+    top: 5%;
+    text-align: left;
+
+    nav {
+        ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            padding: 0;
+            margin: 0;
+
+            li {
+                a {
+                    color: var(--color-white);
+                    text-decoration: none;
+                    font-weight: 500;
+
+                    &:hover {
+                        color: var(--color-orange);
+                    }
+                }
+            }
+        }
+    }
+}
+#container {
+    display: flex;
+    height: calc(100vh - 70px);
+}
+#slidebar {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 200px;
+    height: 100%;
+    background-color: var(--secondary-color);
+    color: var(--color-white);
+    padding: 20px 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+#slidebar .url-input {
+    padding: 5px;
+    border: 1px solid var(--color-gray);
+    border-radius: 2px;
+    /* background-color: rgba(255,255,255,0.1); */
+    color: var(--color-white);
+}
+
+.profile-card {
+    position: relative;
+    margin: 0 10px 15px;
+    border-radius: 16px;
+    overflow: hidden;
+    background-color: rgba(255,255,255,0.06);
+    text-align: center;
+}
+
+.profile-banner {
+    height: 80px;
+    background: linear-gradient(135deg, #26445F 0%, #1E1E1E 100%);
+}
+
+.profile-avatar {
+    position: absolute;
+    left: 50%;
+    top: 40px;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 3px solid rgba(255,255,255,0.9);
+    overflow: hidden;
+    background-color: #1E1E1E;
+    box-shadow: #ffffff 0px 0px 10px;
+}
+
+.profile-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-card h2 {
+    margin: 70px 15px 15px;
+    font-size: 20px;
+    color: var(--color-white);
+}
+
+.sidebar-input-container {
+    padding: 0 10px 15px;
+}
+
+#slidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#slidebar a {
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+#slidebar li {
+    color: var(--color-white);
+    margin-bottom: 10px;
+    padding: 0 5%;
+    font-size: 12px;
+}
+
+#slidebar li:hover {
+    background-color: var(--color-orange);
+    text-decoration: underline;
+    color: var(--color-white);
+}
+
+.command-text {
+    background-color: transparent;
+    border: none;
+    color: var(--color-white);
+    padding: 0;
+    margin: 0;
+    white-space: pre-wrap;
+}
+
+.copy-button {
+    background-color: var(--color-orange);
+    color: var(--color-white);
+    border: none;
+    border-radius: 4px;
+    padding: 6px 10px;
+    cursor: pointer;
+}
+
+.command-note {
+    font-size: 14px;
+    color: var(--color-white);
+    margin-top: 10px;
+}
+
+#heroarea{
+    flex: 1;
+    background-color: var(--primary-color);
+    color: var(--color-white);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: left;
+    padding: 20px;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    h1 {
+        font-size: 48px;
+        margin-bottom: 20px;
+    }
+
+    p {
+        font-size: 18px;
+        max-width: 600px;
+        margin-bottom: 30px;
+    }
+}
+.command-box{
+    display: flex;
+    margin-top: 10px;
+    .command-text{
+        border: var(--color-orange) solid 1px;
+        border-radius: 4px;
+        padding: 5px;
+        flex: 1;
+    }
+    .copy-button{
+        background-color: transparent;
+        border: var(--color-pink) solid 1px;
+        margin-left: 5px;
+        &:hover{
+            background-color: var(--color-pink);
+            color: var(--primary-color);
+            opacity: 0.9;
+        }
+    }
+}
+
+.book-search-container {
+    margin: 22px 0 12px;
+}
+
+.book-search-container input {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 12px;
+    border: 1px solid var(--color-pink);
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--color-white);
+    outline: none;
+}
+
+.book-search-container input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+.book-list{
+    display: grid;
+    grid-template-columns:  2fr auto;
+    gap: 3px;
+}
+.book-item{
+    background-color: var(--secondary-color);
+    border-radius: 2px;
+    a{
+        color: var(--color-white);
+        text-decoration: none;
+        font-size: 12px;
+        display: block;
+        padding: 2px 5px;
+        border-radius: 4px;
+        &:hover{
+            background-color: var(--color-orange);
+            color: var(--color-white);
+        }
+    }
+}
+.section-content {
+    animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
