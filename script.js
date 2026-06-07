@@ -1,11 +1,51 @@
+// Function to attach copy button listeners (reusable for dynamic content)
+function attachCopyButtonListeners() {
+    const copyButtons = document.querySelectorAll('.copy-button');
+    copyButtons.forEach(button => {
+        // Remove existing listeners by cloning
+        const newButton = button.cloneNode(true);
+        button.parentNode.replaceChild(newButton, button);
+        
+        if (!newButton.dataset.originalText) {
+            newButton.dataset.originalText = newButton.textContent;
+        }
+        newButton.addEventListener('click', () => {
+            const commandElement = newButton.closest('.command-box')?.querySelector('.command-text');
+            if (commandElement) {
+                copyText(commandElement.textContent.trim(), newButton);
+            }
+        });
+    });
+}
+
+// Function to attach command text listeners (reusable for dynamic content)
+function attachCommandListeners() {
+    const commandTextElements = document.querySelectorAll('.command-text');
+    commandTextElements.forEach(element => {
+        const template = element.dataset.template || element.textContent;
+        element.dataset.template = template.trim();
+        element.addEventListener('click', () => {
+            copyText(element.textContent.trim(), element.closest('.command-box')?.querySelector('.copy-button'));
+        });
+    });
+}
+
 // Hide all sections and show the target section
-function showSection(sectionId) {
+async function showSection(sectionId) {
     const sections = document.querySelectorAll('.section-content');
     sections.forEach(section => {
         section.style.display = 'none';
     });
     
-    const targetSection = document.querySelector(sectionId);
+    let targetSection = document.querySelector(sectionId);
+    
+    // If section doesn't exist, try loading it from external file
+    if (!targetSection && window.loadPageContent) {
+        const sectionIdClean = sectionId.replace('#', '');
+        await window.loadPageContent(sectionIdClean);
+        targetSection = document.querySelector(sectionId);
+    }
+    
     if (targetSection) {
         targetSection.style.display = 'block';
         targetSection.scrollIntoView({
@@ -17,8 +57,6 @@ function showSection(sectionId) {
 
 // Smooth scrolling for anchor links
 const urlInput = document.getElementById('url-input');
-const commandTextElements = document.querySelectorAll('.command-text');
-const copyButtons = document.querySelectorAll('.copy-button');
 
 function getDomainFromInput(value) {
     const trimmed = value.trim();
@@ -41,6 +79,7 @@ function replaceUrlPlaceholder(template, domain) {
 
 function updateAllCommands() {
     const domain = getDomainFromInput(urlInput ? urlInput.value : '');
+    const commandTextElements = document.querySelectorAll('.command-text');
     commandTextElements.forEach(element => {
         const template = element.dataset.template || element.textContent;
         element.textContent = replaceUrlPlaceholder(template, domain);
@@ -111,30 +150,15 @@ if (bookSearchInput) {
     bookSearchInput.addEventListener('input', event => filterBookList(event.target.value));
 }
 
-commandTextElements.forEach(element => {
-    const template = element.dataset.template || element.textContent;
-    element.dataset.template = template.trim();
-    element.addEventListener('click', () => {
-        copyText(element.textContent.trim(), element.closest('.command-box')?.querySelector('.copy-button'));
-    });
-});
-
-copyButtons.forEach(button => {
-    if (!button.dataset.originalText) {
-        button.dataset.originalText = button.textContent;
-    }
-    button.addEventListener('click', () => {
-        const commandElement = button.closest('.command-box')?.querySelector('.command-text');
-        if (commandElement) {
-            copyText(commandElement.textContent.trim(), button);
-        }
-    });
-});
+// Initialize event listeners for existing command elements
+attachCommandListeners();
+attachCopyButtonListeners();
 
 updateAllCommands();
 
+// Handle anchor links with routing support
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
+    anchor.addEventListener('click', async function (e) {
         const href = this.getAttribute('href');
         
         // Ignore empty anchors or mailto links
@@ -143,6 +167,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         }
         
         e.preventDefault();
-        showSection(href);
+        await showSection(href);
     });
 });
